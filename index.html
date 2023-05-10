@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net" rel="preconnect" />
+    <link href="https://code.jquery.com" rel="preconnect" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+        integrity="sha256-rTpdO0HXBCNpreAHcu6tB2Ppg515Vo+5GtYSsnNLz+8=" crossorigin="anonymous">
+    <style>
+        kbd {
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 8px;
+            margin: 0 3px;
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+            background-color: #f7f7f7;
+        }
+
+        body {
+            -webkit-print-color-adjust: exact;
+        }
+
+        .main-layout {
+            padding: 20px 0;
+        }
+
+        .field+.field {
+            margin-top: 20px;
+        }
+
+        .top-blocks {
+            margin: 25px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .top-blocks>.field {
+            margin-top: 0;
+        }
+
+        .hard-group__title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f5f5f5;
+            margin-bottom: 10px !important;
+        }
+
+        .hard-group+.hard-group {
+            padding-top: 30px;
+        }
+
+        .hard-field {
+            display: flex;
+            margin-top: 0;
+            margin-bottom: 0;
+            align-items: flex-start;
+        }
+
+        .hard-field+.hard-field {
+            margin-top: 15px;
+        }
+
+        .hard-field:hover {
+            background-color: #e1e5f6;
+        }
+
+        .hard-field__label {
+            text-transform: capitalize;
+            font-weight: normal;
+            width: 150px;
+            margin-right: 20px;
+            margin-bottom: 0 !important;
+        }
+
+        .hard-field__control {
+            width: calc(100% - 170px);
+            display: flex;
+            column-gap: 20px;
+            row-gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 5px;
+        }
+
+        .hard-field__checkbox {
+            margin: 0 !important;
+        }
+
+        .hard-skills {
+            margin-bottom: 20px;
+        }
+
+        .hard-help,
+        .hard-prefix {
+            width: 100%;
+        }
+
+        .hard-prefix {
+            margin-bottom: 20px;
+        }
+
+        .radio,
+        .checkbox {
+            margin-left: 0 !important;
+            margin-right: 20px;
+        }
+
+        .radio-last-fix {
+            margin-right: 0;
+        }
+
+        .is-required {
+            color: crimson;
+        }
+
+        .only-for-print,
+        .box-for-print {
+            display: none;
+        }
+
+        .box-for-print {
+            padding: 0 !important;
+        }
+
+        .add-sign {
+            fill: currentColor;
+            margin-right: 5px;
+        }
+
+        @media print {
+            @page {
+                size: auto;
+                margin-bottom: 0;
+            }
+
+            html {
+                margin-bottom: 0px;
+            }
+
+            body {
+                margin: 0 0 5mm 0;
+            }
+
+            .not-share-warn {
+                margin-top: 20px;
+            }
+
+            .top-blocks {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .feedback-for-candidat {
+                grid-column: 1/4;
+                border-radius: 4px;
+                border: 1px solid #fff;
+            }
+
+            .box-for-print,
+            .only-for-print {
+                display: block !important;
+            }
+
+            .print-hide {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="main-layout print-hide">
+        <div class="container is-max-desktop is-flex is-justify-content-flex-end">
+            <button type="button" class="wannabe-reset button is-danger is-light">
+                <svg height="18px" viewBox="0 0 512 512" width="18px" xmlns="http://www.w3.org/2000/svg"
+                    class="add-sign">
+                    <path
+                        d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                </svg>
+                Начать новое интервью
+            </button>
+        </div>
+        <br />
+        <div class="message is-dark container is-max-desktop">
+            <div class="message-body">
+                Форма сохраняет состояние между перезагрузками страницы. По окончании
+                заполнения достаточно нажать «распечатать» в конце страницы или
+                <kbd>⌘</kbd>+<kbd>P</kbd>. PDF принтер сохранит получившийся отчёт.
+            </div>
+        </div>
+        <form class="container is-max-desktop">
+            <div class="message container is-warning is-max-desktop only-for-print not-share-warn">
+                <div class="message-body">
+                    Пожалуйста, не передавайте кандидатам никакую информацию кроме поля
+                    «Рекомендации (для ОС кандидату)». Вся остальная информация
+                    предназначена исключительно для внутреннего использования (включая
+                    оценку уровня).
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">И[О]Ф<span class="is-required">*</span></label>
+                <div class="control">
+                    <input required type="text" class="input" name="fio" placeholder="Денис [Сергеевич] Аникин"
+                        tabindex="0" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Решение<span class="is-required">*</span></label>
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" value="recommend" name="decision" />
+                        Рекомендую
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="decline" name="decision" checked />
+                        Не рекомендую
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="maybe" name="decision" />
+                        Стоит попробовать в другие команды
+                    </label>
+                    <label class="radio radio-last-fix">
+                        <input type="radio" value="recommend-if" name="decision" />
+                        Рекомендую, если
+                        <input name="recomend-if-smth" type="text" class="input is-small before-print-skip" />
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Уровень<span class="is-required">*</span></label>
+                <!--Please note: level is a subjective thing, it may vary from company to company drastically. This is just example scale-->
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" value="trainee" name="level" />
+                        Trainee
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="junior" name="level" checked />
+                        Junior
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="junior+" name="level" />
+                        Junior+
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="middle-" name="level" />
+                        Middle-
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="middle" name="level" />
+                        Middle
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="middle+" name="level" />
+                        Middle+
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="senior-" name="level" />
+                        Senior-
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="senior" name="level" />
+                        Senior
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="senior+" name="level" />
+                        Senior+
+                    </label>
+                </div>
+            </div>
+
+            <div class="top-blocks">
+                <div class="field feedback-for-candidat">
+                    <label class="label">Рекомендации (для ОС кандидату)</label>
+                    <div class="control">
+                        <textarea rows="2" name="grow-areas" class="textarea is-normal"
+                            placeholder="Может быть полезно улучшить знания в области SOLID, баз данных (нормальные формы)"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Софт скилы</label>
+                    <div class="control">
+                        <textarea rows="2" name="soft-skills" class="textarea is-normal"
+                            placeholder="Кандидат коммуникабельный"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Комментарии</label>
+                    <div class="control">
+                        <textarea rows="2" name="comments" class="textarea is-normal"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Дополнительные артефакты</label>
+                    <div class="control">
+                        <textarea rows="2" name="artifacts" class="textarea is-normal"></textarea>
+                    </div>
+                    <div class="help print-hide">
+                        Для лайвкодинга:
+                        <a href="http://collabedit.com/new" target="_blank">http://collabedit.com/new</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hard-skills"></div>
+
+            <div class="field print-hide">
+                <div class="control">
+                    <button type="button" class="wannabe-sumit button is-link">
+                        Распечатать
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="section box-for-print"></section>
+
+    <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.1/dist/autosize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sisyphus.js/1.1/sisyphus.min.js"
+        integrity="sha512-1N2qGyNmXR6aBPvo+/tLAWEW0bYgaLUVBW/7UokK/2M3dn83XKSqg/gTyO/OIc83RlJSUaARlSqEWaHdJmwkSA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const HARD_SKILLS_MAP = {
+            Python: {
+                items: {
+                    frameworks: {
+                        items: ["django", "flask", "aiohttp", "fastapi", "sanic", "litestar", "blacksheep", "socketify.py", "robyn"],
+                    },
+                },
+                help: `https://docs.python.org/3/library/index.html<br>
+                 https://docs.python.org/3/reference/index.html`,
+            },
+
+            Databases: {
+                items: {
+                    "database-engine": {
+                        items: [
+                            "MySQL",
+                            "PostgreSQL"
+                        ],
+                    },
+                },
+            },
+
+            "Service communication": {
+                items: {
+                    REST: {
+                        items: [
+                            "Средне знает",
+                            "Хорошо знает",
+                        ],
+                        help: `https://restfulapi.net/<br>
+                     https://restfulapi.net/rest-architectural-constraints/<br>
+                     https://martinfowler.com/articles/richardsonMaturityModel.html<br>
+                     https://stackoverflow.com/a/30880800`,
+                    },
+                },
+            },
+
+            DevOps: {
+                items: {
+                    docker: {
+                        items: [
+                            "Средне знает",
+                            "Хорошо знает",
+                        ],
+                    },
+                },
+            },
+
+            Architecture: {
+                items: {
+                    OOP: { items: ["Инкапсуляция", "Наследование", "Полиморфизм", "Абстракция"] },
+                },
+            },
+
+            Structures: {
+                items: {
+                    BigO: { items: ["Понимает", "Глубокие знания", "Защитил дисер на эту тему"] },
+                    Array: { items: ["Знает"] },
+                    Stack: { items: ["Знает"] },
+                    Queue: { items: ["Знает"] },
+                    LinkedList: { items: ["Знает"] },
+                    BinaryTree: { items: ["Знает"] },
+                    HashTable: { items: ["Знает"] },
+                    Trie: { items: ["Знает"] },
+                },
+            },
+        };
+
+        // init hard skills matrix
+        const fullSkillsMatrixReady = Object.keys(HARD_SKILLS_MAP)
+            .map((oneGroup) => {
+                const oneGroupOfSkillsReady = Object.keys(
+                    HARD_SKILLS_MAP[oneGroup].items
+                )
+                    .map((oneKey) => {
+                        const skillRow = HARD_SKILLS_MAP[oneGroup].items[oneKey];
+                        return `
+                <div class="field hard-field">
+                    <label class="label hard-field__label">${oneKey
+                                .split("-")
+                                .join(" ")}</label>
+                    <div class="control hard-field__control">
+                      ${["Нет ответа", ...skillRow.items]
+                                .map((oneTitle, oneIndex) => {
+                                    return `<label class="checkbox hard-field__checkbox">
+                                      <input type="checkbox" name="${oneKey}-${oneIndex}" />
+                                      ${oneTitle}
+                                  </label>`;
+                                })
+                                .join("")}
+                      ${skillRow.help
+                                ? `<div class="help hard-help print-hide">${skillRow.help}</div>`
+                                : ""
+                            }
+                    </div>
+                </div>`;
+                    })
+                    .join("");
+                return `<div class="hard-group">
+                <div class="title is-5 hard-group__title">${oneGroup}</div>
+                <div class="help hard-prefix print-hide">
+                  ${HARD_SKILLS_MAP[oneGroup].help
+                        ? `<div>${HARD_SKILLS_MAP[oneGroup].help}</div>`
+                        : ""
+                    }
+                </div>
+                ${oneGroupOfSkillsReady}
+              </div>`;
+            })
+            .join("");
+        $(".hard-skills").html(fullSkillsMatrixReady);
+
+        // bind events
+        (() => {
+            const formHandler = $("form");
+            const printBoxSelector = ".box-for-print";
+            const printBoxHandler = $(printBoxSelector);
+
+            // init things
+            formHandler.sisyphus();
+            formHandler.on("submit", () => false);
+            autosize($("textarea"));
+
+            // handlers start here
+            $(".wannabe-sumit").on("click", function () {
+                window.print();
+                return false;
+            });
+
+            $(".wannabe-reset").on("click", () => {
+                if (
+                    window.confirm(
+                        "Уверены? Все поля будут стерты и значения утеряны полностью"
+                    )
+                ) {
+                    formHandler[0].reset();
+                    window.location.reload();
+                }
+                return false;
+            });
+
+            $("input[name=fio]")
+                .on("keyup focus", function () {
+                    $("title").html(
+                        `Интервью--${$(this)
+                            .val()
+                            .replace(/\s{1,}/g, "-")}`
+                    );
+                })
+                .focus();
+
+            $("input[name='recomend-if-smth']").on("focus", function () {
+                console.log(1);
+                $(this).parent().find("input").click();
+            });
+
+            $(window).on("beforeprint", () => {
+                // copy original form to fake one
+                printBoxHandler.html("");
+                formHandler.clone(true).appendTo(printBoxSelector);
+                // hide unselected radios and checkbox
+                printBoxHandler
+                    .find("input[type=radio], input[type=checkbox]")
+                    .each(function () {
+                        if (!$(this).is(":checked")) {
+                            $(this).parent().addClass("print-hide");
+                        }
+                        $(this).attr("readonly", "readonly");
+                    });
+                // hide empty text input fields
+                printBoxHandler
+                    .find("input[type=text]:not(.before-print-skip), textarea")
+                    .each(function () {
+                        if ($(this).val().trim().length == 0) {
+                            $(this).parent().parent().addClass("print-hide");
+                        }
+                        $(this).attr("readonly", "readonly");
+                    });
+                // hide hard fields without any visible checkbox child
+                printBoxHandler.find(".hard-field").each(function () {
+                    if ($(this).find(".checkbox:not(.print-hide)").length == 0) {
+                        $(this).addClass("print-hide");
+                    }
+                });
+                // hide hard groups without any visible hard field
+                printBoxHandler.find(".hard-group").each(function () {
+                    if ($(this).find(".checkbox:not(.print-hide)").length == 0) {
+                        $(this).addClass("print-hide");
+                    }
+                });
+                // replace textareas with text
+                printBoxHandler.find("textarea, input[type=text]").each(function () {
+                    $(this).replaceWith($(this).val().replace(/\n/g, "<br>"));
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
