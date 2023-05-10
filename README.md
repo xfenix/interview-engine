@@ -12,7 +12,7 @@ This is simple interview «engine».
 
 
 ### Prepare questions
-Fill JSON at the [./index.html:333](index.html#333) line.
+Fill JSON at the [./index.html:333](index.html#L333) line.
 
 ### Info
 There is no actual questions in this file, only example for your understanding.
