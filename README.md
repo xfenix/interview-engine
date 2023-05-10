@@ -1,4 +1,5 @@
 # Interview «engine»
+<img src="./docs/example.png" width="400" alt="Example interview process (this person in the preview is me)"><br>
 This is simple interview «engine».
 
 ### Quickstart
