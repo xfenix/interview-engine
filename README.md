@@ -15,4 +15,5 @@ This is simple interview «engine».
 Fill JSON at the [./index.html:333](index.html#L333) line.
 
 ### Info
-There is no actual questions in this file, only example for your understanding.
+There is no actual questions in this file, only example for your understanding.  
+Also, you can check output review format here [./docs/Интервью--Денис-Аникин.pdf](./docs/Интервью--Денис-Аникин.pdf)
